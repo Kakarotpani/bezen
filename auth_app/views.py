@@ -3,33 +3,35 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .models import *
+from .forms import *
 
-# Create your views here.
 
 def index(request):
     return render(request, 'index.html')
 
-""" def register(request):
+
+def register_method(request):
     registered = False
     if request.method == 'POST':
-        profileForm = profileForm(request.POST)        
-        if user_form.is_valid() and profile_form.is_valid():             
-            user = user_form.save()
+        user_form = UserForm(request.POST)
+        if user_form.is_valid():
+            user = UserForm.save()
             user.set_password(user.password)
-            profile.user = user
-            profile.save()
             registered = True
-            messages.success(request, "* Successfully Registered as an Applicant .......")
+            messages.success(request, "Registered Successfully !!")
             return HttpResponseRedirect('/login')
         else:
-            messages.error(request,"* Invalid data . Try Again !!")
-            return HttpResponseRedirect('/register/seeker')
+            messages.error(request, "* Invalid data . Try Again !!")
+            return HttpResponseRedirect('/register')
     else:
         context = {
-            'user_form' : User_Form(),
-            'registered' : registered 
-        }        
-    return render(request, 'seeker_register.html', context = context)
+            'user_form': UserForm(),
+            'registered': registered,
+            'list_items': ['1','2','3','4','5']
+        }
+    return render(request, 'items_view.html', context=context)
+
 
 def login_method(request):
     if request.method == 'POST':
@@ -38,7 +40,7 @@ def login_method(request):
         user = authenticate(username=username, password=password)
         if user:
             if user.is_active:
-                login(request, user)   
+                login(request, user)
                 messages.success(request, "* Logged in successful !!")
                 return HttpResponseRedirect('/')
             else:
@@ -55,4 +57,4 @@ def login_method(request):
 def logout_method(request):
     logout(request)
     messages.success(request, "* Successfully Logged out !!")
-    return HttpResponseRedirect('/login') """
+    return HttpResponseRedirect('/login')

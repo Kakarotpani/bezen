@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Ben Zen</title>
+    <link href="{% static 'css/index.css' %}" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/6fad8992f4.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body class="rounded"
+    style="background-image: url('https://images.pexels.com/photos/326281/pexels-photo-326281.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'); height: auto; width: auto;">
+
+    <!--  django msg  -->
+    {% if messages %}
+    {% for message in messages %}
+    <center>
+        <div class="msgContainer">
+            <h4>{{ message }}</h4>
+            {% endfor %}
+        </div>
+    </center>
+    {% endif %}
+    <div class="top-container">
+        <div class="topnav">
+            <h2 id="home-text">Zen Foods</h2>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'auth_app:login' %}">login</a></li>
+                    <li><a href="{% url 'auth_app:register' %}">register</a></li>
+                    <li><a href="">recipies</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    {% block content %}
+    {% endblock %}
+
+</body>
+
+</html>
