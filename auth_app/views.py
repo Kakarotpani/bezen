@@ -10,13 +10,12 @@ from .forms import *
 def index(request):
     return render(request, 'index.html')
 
-
 def register_method(request):
     registered = False
     if request.method == 'POST':
         user_form = UserForm(request.POST)
         if user_form.is_valid():
-            user = UserForm.save()
+            user = user_form.save()
             user.set_password(user.password)
             registered = True
             messages.success(request, "Registered Successfully !!")
@@ -28,9 +27,9 @@ def register_method(request):
         context = {
             'user_form': UserForm(),
             'registered': registered,
-            'list_items': ['1','2','3','4','5']
+            'list_items': ['1', '2', '3', '4', '5']
         }
-    return render(request, 'items_view.html', context=context)
+    return render(request, 'register.html', context=context)
 
 
 def login_method(request):
@@ -58,3 +57,21 @@ def logout_method(request):
     logout(request)
     messages.success(request, "* Successfully Logged out !!")
     return HttpResponseRedirect('/login')
+
+@login_required(login_url='/login')
+def profile_update(request):
+    user = User.objects.get(email= request.user.email)
+    profile = UserForm(instance=user)
+    if request.method == "POST":
+        data = UserForm(request.POST, instance=user)
+        if data.is_valid():
+            data.save(commit=True)
+            messages.success(request, "* Profile Updated successfully .....")
+            return HttpResponseRedirect('/profile/update')
+        else:
+            messages.error(request, "* Invalid data . Try Again !!")
+            return HttpResponseRedirect('/profile/update')
+    context = {
+        'user_form': profile,
+    }
+    return render(request, 'profile.html', context=context)

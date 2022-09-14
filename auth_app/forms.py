@@ -3,16 +3,16 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import *
 
 class UserForm(forms.ModelForm):   
-    confirmPassword = forms.CharField(widget=forms.PasswordInput())
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model = User
-        fields = ("email", "password", "confirmPassword")
+        fields = ("first_name", "last_name", "email", "password", "confirm_password")
         widgets =  {'password': forms.PasswordInput()}
-
+""" 
     def clean(self):
         cleaned_data = super(UserForm, self).clean()
         password = cleaned_data.get("password")
-        confirm_password = cleaned_data.get("confirmPassword")
+        confirm_password = cleaned_data.get("confirm_password")
 
         if password != confirm_password:
-            raise forms.ValidationError("password and confirm password does not match")
+            raise forms.ValidationError("password and confirm password does not match") """

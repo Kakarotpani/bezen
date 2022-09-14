@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+<center>
+    <section class='login'>
+        <div class='head'>
+            <h1 class='company'>Zen Foods</h1>
+        </div>
+        <p class='msg'>Register Here</p> <br><br>
+        <div class='register-form'>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                    {{ user_form.first_name|as_crispy_field }} <br>
+                    {{ user_form.last_name|as_crispy_field }} <br>
+                    {{ user_form.email|as_crispy_field }} <br>
+                    {{ user_form.password|as_crispy_field }} <br>
+                    {{ user_form.confirm_password|as_crispy_field }} <br>
+                <center>
+                    <input class="btn btn-outline-info" type="submit" value="Register"> <br> <br>
+                </center>
+            </form>
+        </div>
+    </section>
+</center>
+
+{% endblock %}
