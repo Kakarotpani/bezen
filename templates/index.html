@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Responsive Navbar with Search Box | CodingNepal</title>
+    <title>Zen Foods</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
@@ -22,13 +22,11 @@ font-family: Assistant, sans-serif;">
         <div class="nav-items">
             {% if user.is_authenticated %}
             <li><a href="{% url 'auth_app:logout' %}">Logout</a></li>
+            <li><a href="{% url 'auth_app:profile' %}">Profile</a></li>
+            <li><a href="{% url 'bezen_app:recipes' %}">My recipes</a></li>
             {% else %}
             <li><a href="{% url 'auth_app:register' %}">Register</a></li>
             <li><a href="{% url 'auth_app:login' %}">Login</a></li>
-            {% endif %}
-            <li><a href="{% url 'bezen_app:recipes' %}">My recipes</a></li>
-            {% if user.is_authenticated %}
-            <li><a href="{% url 'auth_app:profile' %}">Profile</a></li>
             {% endif %}
         </div>
         <div class="search-icon">
