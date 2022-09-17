@@ -1,25 +1,34 @@
+from telnetlib import AUTHENTICATION
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
+from bezen_app.models import Food
 from .models import *
 from .forms import *
 
 
 def index(request):
-    return render(request, 'index.html')
+   items = Food.objects.all()
+   return render(request, 'index.html', {'items': items})
 
 def register_method(request):
     registered = False
     if request.method == 'POST':
         user_form = UserForm(request.POST)
         if user_form.is_valid():
-            user = user_form.save()
+            user_form.save()
+            email = user_form.cleaned_data.get('email')
+            password = user_form.cleaned_data.get('password')
+            account = authenticate(email=email, password = password)
+            login(request, account)
+            """ user = user_form.save()
             user.set_password(user.password)
-            registered = True
+            registered = True """
             messages.success(request, "Registered Successfully !!")
-            return HttpResponseRedirect('/login')
+            return HttpResponseRedirect('/')
         else:
             messages.error(request, "* Invalid data . Try Again !!")
             return HttpResponseRedirect('/register')
@@ -27,21 +36,22 @@ def register_method(request):
         context = {
             'user_form': UserForm(),
             'registered': registered,
-            'list_items': ['1', '2', '3', '4', '5']
         }
     return render(request, 'register.html', context=context)
 
 
 def login_method(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
+        print(email, "\n",password)
+        user = authenticate(email=email, password=password)
+        print("AUTHENTICATION : ", user)
         if user:
             if user.is_active:
                 login(request, user)
                 messages.success(request, "* Logged in successful !!")
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/profile')
             else:
                 messages.error(request, "User doesn't exist.")
                 return HttpResponseRedirect('/login')
@@ -61,16 +71,16 @@ def logout_method(request):
 @login_required(login_url='/login')
 def profile_update(request):
     user = User.objects.get(email= request.user.email)
-    profile = UserForm(instance=user)
+    profile = UpdateForm(instance=user)
     if request.method == "POST":
-        data = UserForm(request.POST, instance=user)
+        data = UpdateForm(request.POST, instance=user)
         if data.is_valid():
-            data.save(commit=True)
+            data.save()
             messages.success(request, "* Profile Updated successfully .....")
-            return HttpResponseRedirect('/profile/update')
+            return HttpResponseRedirect('/profile')
         else:
             messages.error(request, "* Invalid data . Try Again !!")
-            return HttpResponseRedirect('/profile/update')
+            return HttpResponseRedirect('/profile')
     context = {
         'user_form': profile,
     }

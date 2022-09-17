@@ -8,13 +8,6 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-body {
-    background: url('https://images.pexels.com/photos/5695940/pexels-photo-5695940.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=2');
-    background-repeat: no-repeat;
-    height: 100%;
-    width: auto;
-}
-
 nav {
     background: #171c24;
     display: flex;
@@ -302,8 +295,17 @@ nav .logo.space {
 
 .btn-outline-info {
     color: rgb(30, 241, 231);
-    ;
     border: 2px solid rgb(30, 241, 231);
+}
+
+.btn-outline-add {
+    color: #fff;
+    background-color: rgb(54, 200, 66);
+}
+
+.btn-outline-danger {
+    color:#fff;
+    background-color: red;
 }
 
 .btn-outline-info:hover {

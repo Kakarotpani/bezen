@@ -14,7 +14,7 @@
         </div>
         <p class='msg'>Register Here</p> <br><br>
         <div class='register-form'>
-            <form method="POST" enctype="multipart/form-data">
+            <form method="POST">
                 {% csrf_token %}
                     {{ user_form.first_name|as_crispy_field }} <br>
                     {{ user_form.last_name|as_crispy_field }} <br>
