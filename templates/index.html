@@ -20,13 +20,13 @@ font-family: Assistant, sans-serif;">
             <a id="logo_txt" href="{% url 'auth_app:index' %}">Zen Foods</a>
         </div>
         <div class="nav-items">
-            <li><a href="{% url 'auth_app:register' %}">Register</a></li>
             {% if user.is_authenticated %}
             <li><a href="{% url 'auth_app:logout' %}">Logout</a></li>
             {% else %}
+            <li><a href="{% url 'auth_app:register' %}">Register</a></li>
             <li><a href="{% url 'auth_app:login' %}">Login</a></li>
             {% endif %}
-            <li><a href="{% url 'bezen_app:recipes' %}">Recipes</a></li>
+            <li><a href="{% url 'bezen_app:recipes' %}">My recipes</a></li>
             {% if user.is_authenticated %}
             <li><a href="{% url 'auth_app:profile' %}">Profile</a></li>
             {% endif %}

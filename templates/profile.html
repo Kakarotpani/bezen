@@ -15,7 +15,7 @@
         <p class='msg'>Profile</p> <br><br>
 
         <div class="register-form">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSJK3l8SFL9UreajR2O-hgUJZGWqa1LSaSNfGVZQ3QZl1xLy1tHkfPrWxa4X9F7bPw6qM&usqp=CAU" alt="profile", style="height: auto; width: 100%;">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSJK3l8SFL9UreajR2O-hgUJZGWqa1LSaSNfGVZQ3QZl1xLy1tHkfPrWxa4X9F7bPw6qM&usqp=CAU" alt="profile", style="height: auto; width: 100%; border-radius: 10%;">
             <form method="POST">
                 {% csrf_token %}
                     {{ user_form.first_name|as_crispy_field }} <br>
