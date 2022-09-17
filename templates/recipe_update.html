@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+<center>
+    <section class='login'>
+        <div class='head'>
+            <h1 class='company'>Edit Recipe</h1> 
+        </div>
+        <br>
+        <div class='register-form'>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                    {{ form.f_name|as_crispy_field }} <br>
+                    {{ form.f_description|as_crispy_field }} <br>
+                    {{ form.ingredients|as_crispy_field }}
+                    {{ form.f_procedure|as_crispy_field }} <br>
+                    {{ form.f_photo|as_crispy_field }} <br>
+                <center>
+                    <input class="btn btn-outline-info" type="submit" value="update recipe"> <br> <br>
+                </center>
+            </form>
+        </div>
+    </section>
+</center>
+
+{% endblock %}

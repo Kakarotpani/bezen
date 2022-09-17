@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+<center>
+<section class='login' id='login'>
+	<div class='head'>
+	<h1 class='company'>Zen Foods</h1>
+	</div>
+	<p class='msg'>Login Here</p> <br><br>
+	<div class='form'>
+	  <form method="POST">
+		{% csrf_token %}
+		<input type="text" placeholder='email' class='text' id='username' name="email"><br>
+		<input type="password" placeholder='password' class='password' name="password"><br><br>
+		<!-- <a href="#" class='btn-login' id='do-login'>Login</a> -->
+		
+		<a href=""><input class="btn-login" type="submit" value="login"></a>
+		<a href="{% url 'auth_app:register' %}" class='forgot'>new here?</a> <br> <br>
+
+	  </form>
+	</div>
+</section>
+</center>
+
+{% endblock %}

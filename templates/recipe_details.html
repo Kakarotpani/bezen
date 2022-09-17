@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .center {
+        width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .label {
+        font-family: 'Quantico';
+        text-align: center;
+    }
+
+    .card-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .product-card {
+        height: fit-content;
+        width: 100%;
+        margin-left: 15px;
+        margin-right: 15px;
+        box-shadow: 0 1px 7px rgba(0, 0, 0, 0.5);
+    }
+
+    .product-card__thumbnail {
+        width: 220px;
+        height: 150px;
+        object-fit: cover;
+    }
+
+    .ing {
+        padding-left: 40px;
+    }
+
+    .product-card__details {
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px;
+        background: white;
+    }
+
+    .product-card__title {
+        font-family: 'Quantico';
+        font-size: 16px;
+        text-transform: uppercase;
+        color: black;
+    }
+
+    .product-card__description {
+        font-family: 'Open Sans';
+        font-weight: 300;
+        font-size: 14px;
+        color: gray;
+    }
+
+    .fimg {
+        align-self: center;
+
+    }
+</style>
+
+<div class="center">
+    <h1 class="label"> {{ item.f_name }}</h1>
+    <div class="card-wrapper">
+        <div class="product-card">
+            <div class="product-card__thumbnail">
+                <img src="{{ item.f_photo.url }}" , style="height: 100%; width: 100%;">
+            </div>
+            <div class="product-card__details">
+                <div class="product-card__title">
+                    {{ item.f_description }}
+                </div> <br>
+                <h5>Ingredients</h5>
+                <div class="ing">
+                    <h6>
+                        {{ item.ingredients }}
+                    </h6>
+                </div><br>
+                <h4>Procedure</h4>
+                <div class="product-card__description">
+                    {{ item.f_procedure }}
+                </div>
+                <a class="btn btn-outline-info" href="{% url 'bezen_app:recipe_update' item.f_id %}">edit</a>
+                <a class="btn btn-outline-danger" href="{% url 'bezen_app:recipe_delete' item.f_id %}">delete</a>
+            </div>
+        </div>
+        {% endblock %}
